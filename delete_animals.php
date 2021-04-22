@@ -17,6 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   }
 }
 
-header('Location: /exhibit.php?name='.$_GET['exhibit_name']);
+header('Location: ./exhibit.php?name='.$_GET['exhibit_name']);
 
 ?>
