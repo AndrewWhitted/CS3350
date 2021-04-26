@@ -18,7 +18,8 @@
 
       if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $stmt = $db->stmt_init();
-        if($stmt->prepare('SELECT animal_name, population, type, region FROM Animals NATURAL JOIN Part_of WHERE exhibit_name = \''.$_GET['name'].'\'') or die(mysqli_error($db))) {
+        if($stmt->prepare('SELECT animal_name, population, type, region FROM Animals NATURAL JOIN Part_of WHERE exhibit_name = ?') or die(mysqli_error($db))) {
+          $stmt->bind_param("s", $_GET['name']);
           $stmt->execute();
           $stmt->bind_result($animal_name, $population, $type, $region);
           while($stmt->fetch()) {
@@ -124,7 +125,8 @@
     $stmt = $db->stmt_init();
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $stmt = $db->stmt_init();
-      if($stmt->prepare('SELECT schedule_id, event_name, group_size, schedule_date, schedule_time FROM (Events NATURAL JOIN Has NATURAL JOIN Event_Schedule NATURAL JOIN Held_in) WHERE exhibit_name = \''.$_GET['name'].'\'') or die(mysqli_error($db))) {
+      if($stmt->prepare('SELECT schedule_id, event_name, group_size, schedule_date, schedule_time FROM (Events NATURAL JOIN Has NATURAL JOIN Event_Schedule NATURAL JOIN Held_in) WHERE exhibit_name = ?') or die(mysqli_error($db))) {
+        $stmt->bind_param("s", $_GET['name']);
         $stmt->execute();
         $stmt->bind_result($schedule_id, $event_name, $group_size, $schedule_date, $schedule_time);
 
