@@ -67,12 +67,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             header("location: dashboard.php");
                         } else{
                             // Password is not valid, display a generic error message
-                            $login_err = "Invalid phone number or password.";
+                            $login_err = "Invalid username or password.";
                         }
                     }
                 } else{
                     // username doesn't exist, display a generic error message
-                    $login_err = "Invalid phone number or password.";
+                    $login_err = "Invalid username or password.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
