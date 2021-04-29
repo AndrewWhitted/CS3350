@@ -18,10 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     $textToWrite = json_encode($rows);
     $file = "event-data.json";
-    file_put_contents($file, $textToWrite);
+    // file_put_contents($file, $textToWrite);
     header("Content-type: text/plain");
     header("Content-Disposition: attachment; filename={$file}");
-    readfile($file);
+    // readfile($file);
+    echo $textToWrite;
     $stmt->close(); 
 }
+$db->close();
 ?>
