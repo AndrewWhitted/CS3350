@@ -5,15 +5,14 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-   header("location: dashboard.php");
+    header("location: dashboard.php");
     exit;
 }
- 
 require "dbutil.php";
 $db = DbUtil::loginConnection();
 $stmt = $db->stmt_init();
  
-// Define variables and initialize with empty values
+// Define variables and initialie with empty values
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
  
@@ -62,7 +61,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
-                            $_SESSION["username"] = $usernamer;                            
+                            $_SESSION["username"] = $username;                            
                             
                             // Redirect user to dashboard page
                             header("location: dashboard.php");

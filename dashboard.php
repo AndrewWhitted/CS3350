@@ -8,6 +8,8 @@
         require "dbutil.php";
         $db = DbUtil::loginConnection();
         $stmt = $db->stmt_init();
+        session_start();
+        $username = $_SESSION['username'];
         if (!isset($_SESSION['username']))
 	{
     		header("Location: login.php");
