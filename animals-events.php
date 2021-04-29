@@ -7,24 +7,47 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <script src="js/jquery-1.6.2.min.js" type ="text/javascript"></script>
+    <script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
     <title>Hello, world!</title>
-    <!-- <script src="js/jquery-1.6.2.min.js" type ="text/javascript"></script>
-        <script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script>
+      $(document).ready(function() {
+          $( "#eventInput" ).change(function() {
+
+              // e.preventDefault();
+
+              $.ajax({
+                  url: 'filterEventName.php',
+                  
+                  data: {filterEventName: $( "#eventInput" ).val()},
+                  success: function(data){
+                      $('#filterEventNameResult').html(data);
+                  }
+              });
+          });
+      });
+
+  </script>
         <script>
             $(document).ready(function() {
                 $( "#animalInput" ).change(function() {
+
+                    // e.preventDefault();
+
                     $.ajax({
                         url: 'filterAnimalName.php',
-                        data: {filterAnimalName: $( "#animalInput" )}.val()},
+                        
+                        data: {filterAnimalName: $( "#animalInput" ).val()},
                         success: function(data){
-                            $( '#filterAnimalNameResult' ).html(data);
+                            $('#filterAnimalNameResult').html(data);
                         }
                     });
                 });
             });
 
-        </script> -->
+        </script>
+
   </head>
   <style>
   .container h1 {
@@ -44,67 +67,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         </div>
-      <!-- </div> -->
+      </div>
     </nav>
     
 <div class="container">
   <h1>Animals</h1>
   <input class = "xlarge" id="animalInput" type="search" size="28" placeholder="Animal Search"/>
-  <!-- <div id="filterAnimalNameResult"> -->
-  <table class="table">
-    
-    <thead class="thead-light"><tr>
-      <th scope="col">Animal Name</th>
-      <th scope="col">Type</th>
-      <th scope="col">Population</th>
-      <th scope="col">Region</th>
-    </tr></thead>
-    <tbody>
-    <?php
-    require_once "dbutil.php";
-    $db = DbUtil::loginConnection();
-
-    $stmt = $db->stmt_init();
-
-    if($stmt->prepare("SELECT * FROM Animals where animal_name like ?") or die(mysqli_error($db))) {
-        $searchString = '%' . $_GET['filterAnimalName'] . '%';
-        $stmt->bind_param(s, $searchString);
-        $stmt->execute();
-        $stmt->bind_result($animal_name, $population, $type, $region);
-
-        while ($stmt->fetch()) {
-            echo '<tr>
-            <th scope="row">'.$animal_name.'</th>
-            <td>'.$type.'</td>
-            <td>
-              '.$population.'
-              </td>
-            <td>'.$region.'</td>
-          </tr>';
-        }
-        $stmt->close();
-        }
-    $db->close();
-
-?>
-    </tbody>
-  </table>
-    <!-- </div> -->
+  <!-- <button type="button" id="animalInput">Sort By Animal</button> -->
+  <div id="filterAnimalNameResult">
     </div>
+
 </div>
 
   <hr />
 
   <div class="container">
     <h1>Events</h1>
-    <table class="table">
-    <thead class="thead-light"><tr>
-      <th scope="col">Event Name</th>
-      <th scope="col">Group Size</th>
-      <th scope="col">Schedule Date</th>
-      <th scope="col">Schedule Time</th>
-        </tr></thead>
-        <tbody>
+    <input class = "xlarge" id="eventInput" type="search" size="28" placeholder="Event Search"/>
+    <div id="filterEventNameResult">
+    </div>
+
         <?php
                 // require "dbutil.php";
                 $db = DbUtil::loginConnection();
@@ -116,25 +98,23 @@
                     }
                 if($stmt->prepare('SELECT schedule_id, event_name, group_size, schedule_date, schedule_time FROM (Events NATURAL JOIN Has NATURAL JOIN Event_Schedule)') or die(mysqli_error($db))) {
                     $stmt->execute();
-                    $stmt->bind_result($schedule_id, $event_name, $group_size, $schedule_date, $schedule_time);
+                    $stmt->bind_result($a, $b, $c, $d, $e);
                 
                     while($stmt->fetch()) {
                         
                         echo '<tr>
-                        <th scope="row">'.$event_name.'</th>
-                        <td>'.$group_size.'</td>
+                        <th scope="row">'.$b.'</th>
+                        <td>'.$c.'</td>
                         <td>
-                        '.$schedule_date.'
+                        '.$d.'
                         </td>
-                    <td>'.$schedule_time.'</td>
+                    <td>'.$e.'</td>
                     </tr>';
                     }
                 $stmt->close();
         }
       ?>
-          
-    </tbody>
-    </table>
+
   </div>
 
   <hr />
@@ -143,4 +123,3 @@
 
 
 <?php require 'wrapper2.html'; ?>
-
