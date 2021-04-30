@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close(); 
   }
 }
+$db->close();
 
-header('Location: /exhibit.php?name='.$_GET['exhibit']);
+header('Location: ./exhibit.php?name='.$_GET['exhibit']);
 
 ?>

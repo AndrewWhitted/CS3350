@@ -14,3 +14,4 @@ if (isset($_SESSION["loggedin"])) {
 if ($u->hasPrivilege("thisPermission")) {
     // do something
 }
+?>

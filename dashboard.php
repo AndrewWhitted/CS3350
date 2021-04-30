@@ -1,3 +1,4 @@
+
 <?php require 'wrapper1.html'; ?>
 
     <div class="container">
@@ -7,12 +8,18 @@
         require "dbutil.php";
         $db = DbUtil::loginConnection();
         $stmt = $db->stmt_init();
-        
+        session_start();
+        $username = $_SESSION['username'];
+        if (!isset($_SESSION['username']))
+	{
+    		header("Location: ./login.php");
+    		die();
+	}
         if($stmt->prepare("SELECT * FROM Exhibit") or die(mysqli_error($db))) {
           $stmt->execute();
           $stmt->bind_result($exhibit_name, $details);
           while($stmt->fetch()) {
-            echo '<a href="exhibit.php?name='.$exhibit_name.'">
+            echo '<a href="./exhibit.php?name='.$exhibit_name.'">
               <div class="col">
                 '.$exhibit_name.'
               </div>

@@ -16,12 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $rows[] = $row;
         }
     }
-    $textToWrite = json_encode($rows);
+    
+    $textToWrite = "";
+    $textToWrite .= '[';
+    foreach ($rows as $row) {
+        $textToWrite .=  '{';
+        foreach ($row as $k => $v) {
+            $textToWrite .=  '"'.$k.'": "'.$v.'",';
+        }
+        $textToWrite = substr($textToWrite, 0, -1);
+        $textToWrite .=  '},';
+    }
+    $textToWrite = substr($textToWrite, 0, -1);
+    $textToWrite .=  ']';
     $file = "event-data.json";
-    file_put_contents($file, $textToWrite);
+    // // file_put_contents($file, $textToWrite);
     header("Content-type: text/plain");
     header("Content-Disposition: attachment; filename={$file}");
-    readfile($file);
+    // // readfile($file);
+    echo $textToWrite;
+    
     $stmt->close(); 
 }
+$db->close();
 ?>

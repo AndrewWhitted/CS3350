@@ -39,7 +39,7 @@
                 </td>
               <td>'.$region.'</td>
               <td>
-                <a href="/delete_animals.php?name='.$animal_name.'&exhibit='.$_GET['name'].'" class="btn btn-danger">Delete Row</a>
+                <a href="./delete_animals.php?name='.$animal_name.'&exhibit='.$_GET['name'].'" class="btn btn-danger">Delete Row</a>
               </td>
             </tr>';
           }
@@ -62,7 +62,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/add_animal.php?exhibit=<?php echo $_GET['name']; ?>" method="POST">
+          <form action="./add_animal.php?exhibit=<?php echo $_GET['name']; ?>" method="POST">
             <div class="form-group">
               <label for="animal_name" class="col-form-label">Animal Name:</label>
               <input type="text" maxlength="255" class="form-control" id="animal_name" name="animal_name">
@@ -96,7 +96,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/change_population.php?exhibit=<?php echo $_GET['name']; ?>" method="POST">
+          <form action="./change_population.php?exhibit=<?php echo $_GET['name']; ?>" method="POST">
             <input type="hidden" id="animal_name_for_pop" name="animal_name" value="">
             <div class="form-group">
               <label for="population" class="col-form-label">Animal Population:</label>
@@ -149,7 +149,7 @@
   <hr />
 
   <h1>Export Event Data To JSON</h1>
-  <a href="/export_events.php?name=<?php echo $_GET['name'];?>" class="btn btn-primary">Export JSON</a>
+  <a href="./export_events.php?name=<?php echo $_GET['name'];?>" class="btn btn-primary">Export JSON</a>
 </div>
 
 <?php require 'wrapper2.html'; ?>
