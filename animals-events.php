@@ -10,7 +10,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="js/jquery-1.6.2.min.js" type ="text/javascript"></script>
     <script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-    <title>Hello, world!</title>
+    <title>Aquarium</title>
+    
     <script>
       $(document).ready(function() {
           $( "#eventInput" ).change(function() {
@@ -54,22 +55,7 @@
     margin-top: 2rem;
   }
   </style>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="./dashboard.php">
-          A Dashboard
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        </div>
-      </div>
-    </nav>
-    
+    <?php require 'wrapper3.html'; ?>
 <div class="container">
   <h1>Animals</h1>
   <input class = "xlarge" id="animalInput" type="search" size="28" placeholder="Animal Search"/>
@@ -121,5 +107,3 @@
 
 
 
-
-<?php require 'wrapper2.html'; ?>
