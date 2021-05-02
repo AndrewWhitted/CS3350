@@ -73,8 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_bind_result($stmt, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
                         echo 'IN MYSQLI STMT FETCH<br />';
-                        echo $password . '    ' . $hashed_password . '<br />';
-                        if(strcmp(crypt($password), $hashed_password)){
+                        if(strcmp(crypt($password,$hashed_password), $hashed_password) == 0){
                             echo 'PASSWORD VERIFY<br />';
                             
                             // Store data in session variables
