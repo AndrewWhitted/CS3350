@@ -24,7 +24,7 @@ $db = DbUtil::loginConnection();
 $stmt = $db->stmt_init();
  
 // Define variables and initialize with empty values
-$username = $password = "";
+$username = $password ="";
 $username_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(strlen($username_err) == 0 && strlen($password_err) == 0){
         // Prepare a select statement
         echo 'Let me in<br />';
-        $sql = "SELECT username, password FROM Logins WHERE username = ?";
+        $sql = "SELECT username, password, role_id FROM Logins WHERE username = ?";
         
         if($stmt = mysqli_prepare($db, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -70,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     // Bind result variables
                     echo 'IN MYSQLI STMT NUM ROWS<br />';
-                    mysqli_stmt_bind_result($stmt, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $username, $hashed_password, $role_id);
                     if(mysqli_stmt_fetch($stmt)){
                         echo 'IN MYSQLI STMT FETCH<br />';
                         if(strcmp(crypt($password,$hashed_password), $hashed_password) == 0){
@@ -79,9 +79,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;
+                            $_SESSION["role_id"] = $role_id;
                             echo 'WHAT??!?!<br />';
                             // Redirect user to dashboard page
-                            header("location: ./dashboard.php");
+                            if($_SESSION["role_id"] != 1){
+                         
+                            	header("location: ./dashboard.php");
+                            	}
+                            else{
+                            	header("location: ./animals-events.php");
+                            }
                         } else{
                             echo 'WHAT ELSE??!?!<br />';
                             // Password is not valid, display a generic error message
