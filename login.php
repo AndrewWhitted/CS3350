@@ -59,28 +59,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Set parameters
             $param_username = $username;
-            echo 'in HERERERERE<br />';
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                echo 'IN MYSQLI STMT EXECUTE<br />';
                 // Store result
                 mysqli_stmt_store_result($stmt);
                 
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     // Bind result variables
-                    echo 'IN MYSQLI STMT NUM ROWS<br />';
                     mysqli_stmt_bind_result($stmt, $username, $hashed_password, $role_id);
                     if(mysqli_stmt_fetch($stmt)){
-                        echo 'IN MYSQLI STMT FETCH<br />';
                         if(strcmp(crypt($password,$hashed_password), $hashed_password) == 0){
-                            echo 'PASSWORD VERIFY<br />';
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;
                             $_SESSION["role_id"] = $role_id;
-                            echo 'WHAT??!?!<br />';
                             // Redirect user to dashboard page
                             if($_SESSION["role_id"] != 1){
                          
@@ -90,15 +84,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             	header("location: ./animals-events.php");
                             }
                         } else{
-                            echo 'WHAT ELSE??!?!<br />';
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
                         }
-                        echo 'EWND FETCH<br />';
                     }
                 } 
                 else{
-                        echo 'LOGIN ERR<br />';
                         // username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";
                 }
@@ -115,7 +106,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     $db->close();
     
-    echo 'out POST<br />';
 }
 
 ?>
