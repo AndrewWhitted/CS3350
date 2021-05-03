@@ -10,6 +10,18 @@
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="js/jquery-1.6.2.min.js" type ="text/javascript"></script>
     <script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<?php
+    require "dbutil.php";
+    $db = DbUtil::loginConnection();
+    $stmt = $db->stmt_init();
+    if(!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
+        header("location: ./login.php");
+        exit;
+    }
+    $db->close();
+?>
+    
+    
     <title>Aquarium</title>
     
     <script>
@@ -76,7 +88,7 @@
     </div>
 
         <?php
-                // require "dbutil.php";
+                require "dbutil.php";
                 $db = DbUtil::loginConnection();
                 $stmt = $db->stmt_init();
                 if (mysqli_connect_errno()) {
