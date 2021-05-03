@@ -11,7 +11,7 @@
         session_start();
         $username = $_SESSION['username'];
         $role_id = $_SESSION['role_id'];
-        if (!isset($_SESSION['username']))
+  if (!isset($_SESSION['username']))
 	{
     		header("Location: ./login.php");
     		die();
