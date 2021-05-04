@@ -1,7 +1,7 @@
 <?php
 class DbUtil{
     public static $loginUser = 'psr4pv';
-    public static $loginPass = '$AquariumPass10';
+    public static $loginPass = '';
     public static $host = 'usersrv01.cs.virginia.edu'; // DB Host
     public static $schema = 'psr4pv'; // DB Schema
 
