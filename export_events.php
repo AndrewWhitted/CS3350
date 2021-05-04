@@ -4,16 +4,21 @@ $db = DbUtil::loginConnection();
 $stmt = $db->stmt_init();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $rows = array();
+    
     if($stmt->prepare('SELECT event_name, group_size, schedule_date, schedule_time 
     FROM (Events NATURAL JOIN Has NATURAL JOIN Event_Schedule NATURAL JOIN Held_in)
     WHERE exhibit_name = ?') or die(mysqli_error($db))) {
         $stmt->bind_param("s", $_GET['name']);
         $stmt->execute();
-        $rows = array();
-        $stmt->bind_result($event_name, $group_size, $schedule_date, $schedule_date, $schedule_time);
-        $result = $stmt->get_result();
-        foreach ($result as $row) {
-            $rows[] = $row;
+        $stmt->bind_result($event_name, $group_size, $schedule_date, $schedule_time);
+        while($stmt->fetch()) {
+            $rows[] = [
+                'event_name'=>$event_name,
+                'group_size'=>$group_size,
+                'schedule_date'=>$schedule_date,
+                'schedule_time'=>$schedule_time
+            ];
         }
     }
     
