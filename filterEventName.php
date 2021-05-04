@@ -6,7 +6,7 @@
 
     if($stmt->prepare("SELECT * FROM Events NATURAL JOIN Has NATURAL JOIN Event_Schedule WHERE event_name like ?") or die(mysqli_error($db))) {
         $searchString = '%' . $_GET['filterEventName'] . '%';
-        $stmt->bind_param(s, $searchString);
+        $stmt->bind_param('s', $searchString);
         $stmt->execute();
         $stmt->bind_result($schedule_id, $event_name, $group_size, $schedule_date, $schedule_time);
         echo '  <table class="table">
@@ -31,6 +31,6 @@
         echo '</tbody></table>';
         $stmt->close();
         }
-    // $db->close();
+    $db->close();
 
 ?>

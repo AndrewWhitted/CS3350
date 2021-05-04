@@ -6,7 +6,7 @@
 
     if($stmt->prepare("SELECT * FROM Animals where animal_name like ?") or die(mysqli_error($db))) {
         $searchString = '%' . $_GET['filterAnimalName'] . '%';
-        $stmt->bind_param(s, $searchString);
+        $stmt->bind_param('s', $searchString);
         $stmt->execute();
         $stmt->bind_result($animal_name, $population, $type, $region);
         echo '  <table class="table">
@@ -31,6 +31,6 @@
         echo '</tbody></table>';
         $stmt->close();
         }
-    // $db->close();
+    $db->close();
 
 ?> 
